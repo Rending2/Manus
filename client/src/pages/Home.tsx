@@ -8,24 +8,26 @@ import {
   ArrowUpRight, 
   Menu, 
   X, 
-  Sparkles, 
-  Compass, 
-  Layers, 
-  Heart, 
-  Instagram, 
-  Twitter, 
+  Code2, 
+  Zap, 
+  Globe, 
+  Smartphone,
+  BarChart3,
+  Lock,
+  Github,
   Linkedin,
-  ChevronRight
+  Twitter,
+  ChevronRight,
+  Check
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Custom type definitions
 interface PortfolioItem {
   id: number;
   title: string;
   category: string;
   image: string;
-  year: string;
+  description: string;
 }
 
 interface ServiceItem {
@@ -34,53 +36,96 @@ interface ServiceItem {
   description: string;
 }
 
+interface ProcessStep {
+  number: string;
+  title: string;
+  description: string;
+}
+
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [contactName, setContactName] = useState<string>("");
-  const [contactEmail, setContactContactEmail] = useState<string>("");
+  const [contactEmail, setContactEmail] = useState<string>("");
   const [contactMessage, setContactMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  // High-quality generated assets
   const portfolioItems: PortfolioItem[] = [
     {
       id: 1,
-      title: "Symphony of Clay",
-      category: "Sculpture & Art Direction",
-      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663709293579/EarATHm5jkRJuPjkpeqG5N/portfolio_1-gMSVCkEZdmYEtpBK2tTEuG.webp",
-      year: "2025"
+      title: "E-Commerce Platform",
+      category: "Full-Stack Development",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663709293579/EarATHm5jkRJuPjkpeqG5N/linkmycraft_portfolio_1-Q3gsE4F6VAVrz6Tfan2UNL.webp",
+      description: "Modern furniture e-commerce site with advanced filtering and checkout flow"
     },
     {
       id: 2,
-      title: "Aurea Botanical Atelier",
-      category: "Luxury Identity & Print",
-      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663709293579/EarATHm5jkRJuPjkpeqG5N/portfolio_2-ZgxUWcbASCAFELtC7W466m.webp",
-      year: "2026"
+      title: "Business Dashboard",
+      category: "Web Application",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663709293579/EarATHm5jkRJuPjkpeqG5N/linkmycraft_portfolio_2-KY7UB2joyTvFdNPZLJ6Abd.webp",
+      description: "Real-time analytics dashboard with data visualization and reporting"
     },
     {
       id: 3,
-      title: "Silent Archways",
-      category: "Spatial & Architectural Design",
-      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663709293579/EarATHm5jkRJuPjkpeqG5N/portfolio_3-SuTPJw2NXJSRmFd3tjmc8N.webp",
-      year: "2026"
+      title: "Creative Agency Site",
+      category: "Brand Website",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663709293579/EarATHm5jkRJuPjkpeqG5N/linkmycraft_portfolio_3-YcXTHN6ehb9MMX3hSpUs3U.webp",
+      description: "Bold, modern portfolio website with smooth animations and interactions"
     }
   ];
 
   const services: ServiceItem[] = [
     {
-      icon: Compass,
-      title: "Brand Strategy & Direction",
-      description: "Unearthing your core narrative and translating it into a deliberate, high-end identity that resonates across touchpoints."
+      icon: Code2,
+      title: "Custom Web Development",
+      description: "Bespoke websites and applications built with modern technologies and best practices"
     },
     {
-      icon: Layers,
-      title: "Creative Art Direction",
-      description: "Curating refined visual aesthetics, bespoke photography direction, and editorial design that tells a sensory story."
+      icon: Smartphone,
+      title: "Responsive Design",
+      description: "Mobile-first designs that look stunning on all devices and screen sizes"
     },
     {
-      icon: Sparkles,
-      title: "Digital & Spatial Design",
-      description: "Crafting poetic web experiences and physical atmospheres where minimalism, warmth, and intuitive interactions meet."
+      icon: Zap,
+      title: "Performance Optimization",
+      description: "Lightning-fast load times and optimized performance for better user experience"
+    },
+    {
+      icon: Globe,
+      title: "E-Commerce Solutions",
+      description: "Complete online stores with payment processing and inventory management"
+    },
+    {
+      icon: BarChart3,
+      title: "Analytics & Tracking",
+      description: "Integrated analytics to measure performance and user behavior"
+    },
+    {
+      icon: Lock,
+      title: "Security & Compliance",
+      description: "Enterprise-grade security, SSL, and compliance with industry standards"
+    }
+  ];
+
+  const processSteps: ProcessStep[] = [
+    {
+      number: "01",
+      title: "Discovery & Strategy",
+      description: "We understand your business goals, target audience, and competitive landscape"
+    },
+    {
+      number: "02",
+      title: "Design & Planning",
+      description: "Wireframes, mockups, and detailed project planning before development begins"
+    },
+    {
+      number: "03",
+      title: "Development",
+      description: "Clean, scalable code built with modern frameworks and best practices"
+    },
+    {
+      number: "04",
+      title: "Testing & Launch",
+      description: "Rigorous testing, optimization, and smooth deployment to production"
     }
   ];
 
@@ -92,87 +137,76 @@ export default function Home() {
     }
     setIsSubmitting(true);
     setTimeout(() => {
-      toast.success("Thank you! Your message has been received by our studio.");
+      toast.success("Thank you! We'll be in touch within 24 hours.");
       setContactName("");
-      setContactContactEmail("");
+      setContactEmail("");
       setContactMessage("");
       setIsSubmitting(false);
     }, 1500);
   };
 
-  const handlePlaceholderClick = (name: string) => {
-    toast.info(`"${name}" is a demonstration link. Live site features coming soon!`);
-  };
-
-  // Animation constants
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-100px" },
-    transition: { duration: 0.8, ease: "easeInOut" as any }
+    transition: { duration: 0.7, ease: "easeOut" as any }
   };
 
   const staggerContainer = {
     initial: {},
     whileInView: {
       transition: {
-        staggerChildren: 0.15
+        staggerChildren: 0.12
       }
     },
     viewport: { once: true, margin: "-100px" }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground overflow-x-hidden selection:bg-primary/10 selection:text-primary">
+    <div className="min-h-screen flex flex-col bg-background text-foreground overflow-x-hidden">
       
       {/* HEADER / NAVIGATION */}
-      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40 transition-colors duration-300">
-        <div className="container py-5 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/30">
+        <div className="container py-4 flex items-center justify-between">
           <a href="#" className="flex items-center gap-2 group">
-            <span className="font-serif text-2xl font-semibold tracking-wide text-foreground/90 transition-colors group-hover:text-primary">
-              LUMINARY
+            <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-sm">
+              LM
+            </div>
+            <span className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+              LinkMyCraft
             </span>
-            <span className="h-1.5 w-1.5 rounded-full bg-accent-foreground animate-pulse" />
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-10">
-            {["Work", "Studio", "Services", "Contact"].map((item) => (
+          <nav className="hidden md:flex items-center gap-8">
+            {["Services", "Portfolio", "Process", "Contact"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300 relative py-1 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 hover:after:w-full after:bg-primary after:transition-all after:duration-300"
+                className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-accent after:transition-all after:duration-300"
               >
                 {item}
               </a>
             ))}
           </nav>
 
-          {/* Action CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* CTA Button */}
+          <div className="hidden md:flex items-center gap-3">
             <Button 
-              variant="outline" 
-              className="rounded-full border-border/80 text-foreground/80 hover:bg-secondary/50 hover:text-foreground hover-lift btn-active-press"
-              onClick={() => handlePlaceholderClick("Journal")}
-            >
-              Journal
-            </Button>
-            <Button 
-              className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 hover-lift btn-active-press"
+              className="rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2.5 font-medium hover-lift btn-active-press"
               onClick={() => {
                 const contactSection = document.getElementById("contact");
                 contactSection?.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              Inquire
+              Get Started
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-full hover:bg-secondary/80 text-foreground/80 transition-colors"
-            aria-label="Toggle menu"
+            className="md:hidden p-2 rounded-lg hover:bg-secondary/80 text-foreground transition-colors"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -186,43 +220,30 @@ export default function Home() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-background border-b border-border/50"
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-background border-b border-border/30"
           >
             <div className="container py-6 flex flex-col gap-6">
-              {["Work", "Studio", "Services", "Contact"].map((item) => (
+              {["Services", "Portfolio", "Process", "Contact"].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors py-1"
+                  className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors"
                 >
                   {item}
                 </a>
               ))}
-              <div className="h-[1px] bg-border/40 my-2" />
-              <div className="flex flex-col gap-3">
-                <Button 
-                  variant="outline" 
-                  className="w-full rounded-full border-border"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    handlePlaceholderClick("Journal");
-                  }}
-                >
-                  Journal
-                </Button>
-                <Button 
-                  className="w-full rounded-full bg-primary text-primary-foreground"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    const contactSection = document.getElementById("contact");
-                    contactSection?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                >
-                  Inquire
-                </Button>
-              </div>
+              <Button 
+                className="w-full rounded-lg bg-primary text-primary-foreground"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  const contactSection = document.getElementById("contact");
+                  contactSection?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                Get Started
+              </Button>
             </div>
           </motion.div>
         )}
@@ -231,106 +252,100 @@ export default function Home() {
       <main className="flex-grow">
         
         {/* HERO SECTION */}
-        <section className="relative min-h-[90vh] flex items-center justify-center py-20 overflow-hidden bg-background">
-          {/* Ambient Background Glow */}
-          <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
-          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-foreground/5 blur-[100px] pointer-events-none" />
+        <section className="relative min-h-[85vh] flex items-center justify-center py-20 overflow-hidden">
+          {/* Ambient Background */}
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-accent/8 blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/8 blur-[100px] pointer-events-none" />
 
-          <div className="container grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+          <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
             {/* Left Content */}
             <motion.div 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-              className="lg:col-span-7 flex flex-col items-start gap-8"
+              transition={{ duration: 0.9, ease: "easeOut" as any }}
+              className="flex flex-col gap-8"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/80 border border-border/40 text-xs font-medium tracking-wider text-secondary-foreground uppercase">
-                <Sparkles className="h-3 w-3 text-primary" />
-                <span>Crafting Digital & Physical Presence</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 w-fit">
+                <Zap className="h-4 w-4 text-accent" />
+                <span className="text-sm font-medium text-accent">Modern Web Development</span>
               </div>
               
-              <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl font-light tracking-tight text-foreground/95 leading-[1.1] text-left">
-                We shape ideas into <span className="italic font-normal text-primary">deliberate, organic</span> experiences.
+              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] text-foreground">
+                Build Your Digital <span className="gradient-text">Presence</span>
               </h1>
               
-              <p className="text-lg md:text-xl text-muted-foreground max-w-xl font-light leading-relaxed text-left">
-                Luminary is a boutique design and art direction studio. We believe in high-end minimalism, thoughtful details, and crafting brands that feel deeply tactile.
+              <p className="text-lg text-muted-foreground max-w-lg font-light leading-relaxed">
+                We create stunning, high-performance websites and applications that help your business grow. From concept to launch, we handle it all.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <Button 
                   size="lg" 
-                  className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-base hover-lift btn-active-press"
-                  onClick={() => {
-                    const workSection = document.getElementById("work");
-                    workSection?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                >
-                  Explore Work
-                  <ChevronRight className="ml-2 h-4 w-4" />
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="rounded-full border-border bg-transparent text-foreground/80 hover:bg-secondary/40 px-8 py-6 text-base hover-lift btn-active-press"
+                  className="rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 font-medium hover-lift btn-active-press"
                   onClick={() => {
                     const contactSection = document.getElementById("contact");
                     contactSection?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
-                  Our Philosophy
+                  Start Your Project
+                  <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="rounded-lg border-border bg-transparent text-foreground hover:bg-secondary/50 px-8 py-6 font-medium hover-lift btn-active-press"
+                  onClick={() => {
+                    const portfolioSection = document.getElementById("portfolio");
+                    portfolioSection?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  View Our Work
+                </Button>
+              </div>
+
+              {/* Stats */}
+              <div className="flex gap-8 pt-4">
+                <div>
+                  <p className="font-display text-3xl font-bold text-primary">50+</p>
+                  <p className="text-sm text-muted-foreground">Projects Delivered</p>
+                </div>
+                <div>
+                  <p className="font-display text-3xl font-bold text-accent">98%</p>
+                  <p className="text-sm text-muted-foreground">Client Satisfaction</p>
+                </div>
               </div>
             </motion.div>
 
             {/* Right Image */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.98, x: 20 }}
+              initial={{ opacity: 0, scale: 0.95, x: 40 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
-              className="lg:col-span-5 relative"
+              transition={{ duration: 1, ease: "easeOut" as any, delay: 0.2 }}
+              className="relative hidden lg:block"
             >
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-primary/5 border border-border/30">
+              <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl border border-border/30 bg-secondary">
                 <img 
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663709293579/EarATHm5jkRJuPjkpeqG5N/hero_bg-A2Tq6kJT6c3wwLQ2LmSMeY.webp" 
-                  alt="Luminary Studio Space" 
+                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663709293579/EarATHm5jkRJuPjkpeqG5N/linkmycraft_hero-V2ftc5sgU8wZz9GTV9q6D9.webp" 
+                  alt="Web Development" 
                   className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
               </div>
-              
-              {/* Floating Badge */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="absolute -bottom-6 -left-6 bg-card/95 backdrop-blur-md p-5 rounded-2xl shadow-xl border border-border/40 flex items-center gap-4 max-w-xs"
-              >
-                <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center text-accent-foreground">
-                  <Heart className="h-5 w-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold">100% Bespoke Craft</h4>
-                  <p className="text-xs text-muted-foreground">Every pixel and texture, tailored to your story.</p>
-                </div>
-              </motion.div>
             </motion.div>
           </div>
         </section>
 
-        {/* WORK / PORTFOLIO SECTION */}
-        <section id="work" className="py-24 bg-secondary/20 relative border-y border-border/40">
+        {/* SERVICES SECTION */}
+        <section id="services" className="py-24 bg-secondary/30 border-y border-border/30">
           <div className="container">
             <motion.div 
               {...fadeInUp}
-              className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+              className="max-w-3xl mb-16"
             >
-              <div className="text-left">
-                <span className="text-xs font-semibold tracking-wider text-accent-foreground uppercase">Selected Creations</span>
-                <h2 className="font-serif text-4xl md:text-5xl font-light mt-3">Portfolio of Intention</h2>
-              </div>
-              <p className="text-muted-foreground max-w-md font-light text-left md:text-right">
-                A carefully curated archive of brands, spaces, and digital platforms we have shaped from concept to realization.
+              <span className="text-sm font-bold tracking-wider text-accent uppercase">Our Services</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mt-4">Everything You Need to Succeed Online</h2>
+              <p className="text-muted-foreground mt-4 font-light text-lg">
+                Comprehensive web development services tailored to your business needs
               </p>
             </motion.div>
 
@@ -338,7 +353,52 @@ export default function Home() {
               variants={staggerContainer}
               initial="initial"
               whileInView="whileInView"
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {services.map((service, idx) => {
+                const Icon = service.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    variants={{
+                      initial: { opacity: 0, y: 20 },
+                      whileInView: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+                    }}
+                    className="group"
+                  >
+                    <Card className="rounded-xl border-border/50 bg-card/50 backdrop-blur-sm hover:shadow-lg hover:border-accent/50 transition-all duration-300 h-full hover-lift">
+                      <CardContent className="p-8 flex flex-col gap-4">
+                        <div className="h-12 w-12 rounded-lg bg-accent/15 text-accent flex items-center justify-center group-hover:bg-accent/25 transition-colors">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        <h3 className="font-display text-xl font-bold text-foreground">{service.title}</h3>
+                        <p className="text-muted-foreground font-light leading-relaxed text-sm">{service.description}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* PORTFOLIO SECTION */}
+        <section id="portfolio" className="py-24 bg-background">
+          <div className="container">
+            <motion.div 
+              {...fadeInUp}
+              className="max-w-3xl mb-16"
+            >
+              <span className="text-sm font-bold tracking-wider text-accent uppercase">Featured Work</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mt-4">Projects We're Proud Of</h2>
+            </motion.div>
+
+            <motion.div 
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true }}
               className="grid grid-cols-1 md:grid-cols-3 gap-8"
             >
               {portfolioItems.map((item) => (
@@ -346,32 +406,27 @@ export default function Home() {
                   key={item.id}
                   variants={{
                     initial: { opacity: 0, y: 30 },
-                    whileInView: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut" as any } }
+                    whileInView: { opacity: 1, y: 0, transition: { duration: 0.7 } }
                   }}
-                  className="group flex flex-col gap-4 cursor-pointer text-left"
-                  onClick={() => handlePlaceholderClick(item.title)}
+                  className="group flex flex-col gap-4 cursor-pointer"
                 >
-                  <div className="relative aspect-square rounded-2xl overflow-hidden border border-border/30 bg-muted">
+                  <div className="relative aspect-square rounded-xl overflow-hidden border border-border/30 bg-muted">
                     <img 
                       src={item.image} 
                       alt={item.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out-snappy group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/95 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-md">
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                    <div className="absolute top-4 right-4 h-10 w-10 rounded-lg bg-white/95 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-lg">
                       <ArrowUpRight className="h-5 w-5 text-foreground" />
                     </div>
                   </div>
-                  <div className="flex justify-between items-start mt-2">
-                    <div>
-                      <h3 className="font-serif text-2xl font-normal group-hover:text-primary transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground font-light mt-1">{item.category}</p>
-                    </div>
-                    <span className="text-xs font-mono text-muted-foreground/60 py-1 px-2.5 rounded bg-secondary/80 border border-border/30">
-                      {item.year}
-                    </span>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-display text-2xl font-bold group-hover:text-primary transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground font-light">{item.category}</p>
+                    <p className="text-sm text-muted-foreground font-light leading-relaxed">{item.description}</p>
                   </div>
                 </motion.div>
               ))}
@@ -379,112 +434,88 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PHILOSOPHY / STUDIO SECTION */}
-        <section id="studio" className="py-28 bg-background">
-          <div className="container grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            {/* Left Column - Quote/Statement */}
+        {/* PROCESS SECTION */}
+        <section id="process" className="py-24 bg-secondary/20 border-y border-border/30">
+          <div className="container">
             <motion.div 
               {...fadeInUp}
-              className="lg:col-span-6 flex flex-col gap-8 text-left"
+              className="max-w-3xl mb-16"
             >
-              <span className="text-xs font-semibold tracking-wider text-accent-foreground uppercase">Our Core Belief</span>
-              <blockquote className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-foreground/90 leading-tight">
-                "Simplicity is not the absence of clutter, but the presence of <span className="italic font-normal text-primary">deliberate clarity</span>."
-              </blockquote>
-              <div className="h-[1px] bg-border/60 w-24" />
-              <p className="text-muted-foreground font-light leading-relaxed max-w-xl">
-                We believe that the best work emerges from deep listening and slow craftsmanship. By stripping away the unnecessary, we expose the essence of your story, creating designs that endure and capture the imagination.
-              </p>
-              <div className="flex items-center gap-4 mt-2">
-                <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center font-serif italic text-lg border border-border/40">
-                  L
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold">The Luminary Ethos</h4>
-                  <p className="text-xs text-muted-foreground">Est. 2024 • Crafting with Warmth</p>
-                </div>
-              </div>
+              <span className="text-sm font-bold tracking-wider text-accent uppercase">Our Process</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mt-4">How We Work</h2>
             </motion.div>
 
-            {/* Right Column - Multi-stat Grid */}
             <motion.div 
               variants={staggerContainer}
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true }}
-              className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
             >
-              {[
-                { number: "01", label: "Slow Design", desc: "We dedicate focused, unhurried attention to every project, rejecting the assembly-line approach." },
-                { number: "02", label: "Tactile Digital", desc: "Digital assets that feel organic, using natural motion, texture, and responsive curves." },
-                { number: "03", label: "Deep Cohesion", desc: "Ensuring that every detail—from favicon to spatial atmosphere—speaks the same language." },
-                { number: "04", label: "Global Reach", desc: "Serving forward-thinking creators and brands worldwide from our physical studio space." }
-              ].map((stat, idx) => (
+              {processSteps.map((step, idx) => (
                 <motion.div
                   key={idx}
                   variants={{
                     initial: { opacity: 0, y: 20 },
                     whileInView: { opacity: 1, y: 0, transition: { duration: 0.6 } }
                   }}
-                  className="p-8 rounded-2xl bg-card border border-border/40 hover-lift text-left"
+                  className="relative"
                 >
-                  <span className="font-serif text-3xl italic text-primary/40 block mb-4">{stat.number}</span>
-                  <h3 className="font-serif text-xl font-medium mb-2">{stat.label}</h3>
-                  <p className="text-sm text-muted-foreground font-light leading-relaxed">{stat.desc}</p>
+                  <div className="flex flex-col gap-4">
+                    <div className="h-14 w-14 rounded-lg bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center font-display font-bold text-lg">
+                      {step.number}
+                    </div>
+                    <h3 className="font-display text-xl font-bold text-foreground">{step.title}</h3>
+                    <p className="text-muted-foreground font-light leading-relaxed">{step.description}</p>
+                  </div>
+                  {idx < processSteps.length - 1 && (
+                    <div className="hidden lg:block absolute top-7 -right-3 w-6 h-[2px] bg-gradient-to-r from-accent to-transparent" />
+                  )}
                 </motion.div>
               ))}
             </motion.div>
           </div>
         </section>
 
-        {/* SERVICES SECTION */}
-        <section id="services" className="py-24 bg-secondary/10 border-t border-border/40">
-          <div className="container">
-            <motion.div 
-              {...fadeInUp}
-              className="max-w-2xl text-left mb-16"
+        {/* CTA SECTION */}
+        <section className="py-24 bg-background relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 pointer-events-none" />
+          
+          <motion.div 
+            {...fadeInUp}
+            className="container max-w-3xl relative z-10 text-center flex flex-col items-center gap-8"
+          >
+            <h2 className="font-display text-4xl md:text-5xl font-bold">
+              Ready to Transform Your Online Presence?
+            </h2>
+            <p className="text-lg text-muted-foreground font-light max-w-xl">
+              Let's discuss your project and create something amazing together.
+            </p>
+            <Button 
+              size="lg" 
+              className="rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 font-medium hover-lift btn-active-press"
+              onClick={() => {
+                const contactSection = document.getElementById("contact");
+                contactSection?.scrollIntoView({ behavior: "smooth" });
+              }}
             >
-              <span className="text-xs font-semibold tracking-wider text-accent-foreground uppercase">What We Do</span>
-              <h2 className="font-serif text-4xl md:text-5xl font-light mt-3">Tailored Capabilities</h2>
-              <p className="text-muted-foreground font-light mt-4">
-                We partner with select visionaries to craft cohesive brand systems, beautiful editorial materials, and interactive web experiences.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {services.map((service, idx) => {
-                const Icon = service.icon;
-                return (
-                  <Card key={idx} className="rounded-2xl border-border/40 bg-card/50 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300">
-                    <CardContent className="p-8 flex flex-col items-start text-left gap-6">
-                      <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <h3 className="font-serif text-2xl font-normal text-foreground/90">{service.title}</h3>
-                        <p className="text-muted-foreground font-light leading-relaxed text-sm">{service.description}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
+              Get Your Free Consultation
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
         </section>
 
-        {/* INQUIRY / CONTACT SECTION */}
-        <section id="contact" className="py-28 bg-background relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
-
-          <div className="container max-w-4xl relative z-10">
+        {/* CONTACT SECTION */}
+        <section id="contact" className="py-28 bg-secondary/30 border-t border-border/30">
+          <div className="container max-w-4xl">
             <motion.div 
               {...fadeInUp}
               className="text-center mb-16 flex flex-col items-center gap-4"
             >
-              <span className="text-xs font-semibold tracking-wider text-accent-foreground uppercase">Inquire</span>
-              <h2 className="font-serif text-4xl md:text-5xl font-light">Begin a Dialogue</h2>
+              <span className="text-sm font-bold tracking-wider text-accent uppercase">Contact Us</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold">Let's Get Started</h2>
               <p className="text-muted-foreground font-light max-w-lg">
-                We take on a limited number of clients each season to maintain our standard of unhurried quality. Tell us about your vision.
+                Tell us about your project and we'll get back to you within 24 hours.
               </p>
             </motion.div>
 
@@ -493,49 +524,49 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-card/75 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-border/40 shadow-xl"
+              className="bg-card/75 backdrop-blur-md p-8 md:p-12 rounded-2xl border border-border/50 shadow-lg"
             >
-              <form onSubmit={handleContactSubmit} className="space-y-6 text-left">
+              <form onSubmit={handleContactSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">Your Name</label>
+                    <label className="text-sm font-bold text-foreground">Your Name</label>
                     <Input 
                       type="text" 
-                      placeholder="E.g., Alexander" 
+                      placeholder="John Doe" 
                       value={contactName}
                       onChange={(e) => setContactName(e.target.value)}
-                      className="rounded-xl border-border/60 bg-background/50 focus-visible:ring-primary/40 py-6"
+                      className="rounded-lg border-border/60 bg-background/50 focus-visible:ring-primary/40 py-6"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">Email Address</label>
+                    <label className="text-sm font-bold text-foreground">Email Address</label>
                     <Input 
                       type="email" 
-                      placeholder="E.g., alex@studio.com" 
+                      placeholder="john@example.com" 
                       value={contactEmail}
-                      onChange={(e) => setContactContactEmail(e.target.value)}
-                      className="rounded-xl border-border/60 bg-background/50 focus-visible:ring-primary/40 py-6"
+                      onChange={(e) => setContactEmail(e.target.value)}
+                      className="rounded-lg border-border/60 bg-background/50 focus-visible:ring-primary/40 py-6"
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">Tell us about your project</label>
+                  <label className="text-sm font-bold text-foreground">Tell us about your project</label>
                   <Textarea 
-                    rows={4} 
-                    placeholder="Describe your vision, timeline, and what you hope to create with us..." 
+                    rows={5} 
+                    placeholder="Describe your project, goals, and timeline..." 
                     value={contactMessage}
                     onChange={(e) => setContactMessage(e.target.value)}
-                    className="rounded-xl border-border/60 bg-background/50 focus-visible:ring-primary/40 p-4 resize-none"
+                    className="rounded-lg border-border/60 bg-background/50 focus-visible:ring-primary/40 p-4 resize-none"
                   />
                 </div>
 
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-base hover-lift btn-active-press"
+                  className="w-full rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 py-6 text-base font-medium hover-lift btn-active-press"
                 >
-                  {isSubmitting ? "Sending Inquiry..." : "Submit Inquiry"}
+                  {isSubmitting ? "Sending..." : "Send Inquiry"}
                 </Button>
               </form>
             </motion.div>
@@ -545,33 +576,34 @@ export default function Home() {
       </main>
 
       {/* FOOTER */}
-      <footer className="bg-secondary/40 border-t border-border/40 py-16">
+      <footer className="bg-foreground/5 border-t border-border/30 py-16">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             
             {/* Column 1 - Brand */}
             <div className="md:col-span-2 flex flex-col gap-6">
               <a href="#" className="flex items-center gap-2">
-                <span className="font-serif text-2xl font-semibold tracking-wide text-foreground/90">
-                  LUMINARY
+                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-xs">
+                  LM
+                </div>
+                <span className="font-display text-lg font-bold text-foreground">
+                  LinkMyCraft
                 </span>
-                <span className="h-1.5 w-1.5 rounded-full bg-accent-foreground" />
               </a>
               <p className="text-sm text-muted-foreground font-light max-w-sm leading-relaxed">
-                An organic minimalist creative studio crafting high-end digital and physical experiences with absolute focus, care, and intention.
+                Professional web development agency creating stunning digital experiences for businesses worldwide.
               </p>
-              <div className="flex items-center gap-4 mt-2">
+              <div className="flex items-center gap-4">
                 {[
-                  { icon: Instagram, label: "Instagram" },
-                  { icon: Twitter, label: "Twitter" },
-                  { icon: Linkedin, label: "LinkedIn" }
+                  { icon: Github, label: "GitHub" },
+                  { icon: Linkedin, label: "LinkedIn" },
+                  { icon: Twitter, label: "Twitter" }
                 ].map((social, idx) => {
                   const Icon = social.icon;
                   return (
                     <button 
                       key={idx}
-                      onClick={() => handlePlaceholderClick(social.label)}
-                      className="h-10 w-10 rounded-full border border-border/60 flex items-center justify-center hover:bg-secondary text-foreground/70 hover:text-foreground transition-colors"
+                      className="h-10 w-10 rounded-lg border border-border/60 flex items-center justify-center hover:bg-secondary text-foreground/70 hover:text-foreground transition-colors"
                       aria-label={social.label}
                     >
                       <Icon className="h-4 w-4" />
@@ -583,9 +615,9 @@ export default function Home() {
 
             {/* Column 2 - Quick Links */}
             <div className="flex flex-col gap-4">
-              <h4 className="text-xs font-semibold tracking-wider text-accent-foreground uppercase">Navigation</h4>
+              <h4 className="text-sm font-bold tracking-wider text-accent uppercase">Navigation</h4>
               <div className="flex flex-col gap-2.5">
-                {["Work", "Studio", "Services", "Contact"].map((item) => (
+                {["Services", "Portfolio", "Process", "Contact"].map((item) => (
                   <a 
                     key={item} 
                     href={`#${item.toLowerCase()}`} 
@@ -597,25 +629,25 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Column 3 - Studio Info */}
+            {/* Column 3 - Contact Info */}
             <div className="flex flex-col gap-4">
-              <h4 className="text-xs font-semibold tracking-wider text-accent-foreground uppercase">The Studio</h4>
+              <h4 className="text-sm font-bold tracking-wider text-accent uppercase">Contact</h4>
               <div className="flex flex-col gap-2.5 text-sm text-muted-foreground font-light">
-                <p>Copenhagen • Tokyo</p>
-                <p>hello@luminary.studio</p>
-                <p>+45 88 92 11 00</p>
+                <p>hello@linkmycraft.com</p>
+                <p>+1 (555) 123-4567</p>
+                <p>Available 24/7</p>
               </div>
             </div>
 
           </div>
 
-          <div className="h-[1px] bg-border/40 my-12" />
+          <div className="h-[1px] bg-border/40 my-8" />
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-muted-foreground font-light">
-            <p>© 2026 Luminary Studio. All rights reserved.</p>
+            <p>© 2026 LinkMyCraft. All rights reserved.</p>
             <div className="flex gap-6">
-              <button onClick={() => handlePlaceholderClick("Privacy Policy")} className="hover:underline">Privacy Policy</button>
-              <button onClick={() => handlePlaceholderClick("Terms of Service")} className="hover:underline">Terms of Service</button>
+              <button className="hover:underline">Privacy Policy</button>
+              <button className="hover:underline">Terms of Service</button>
             </div>
           </div>
         </div>
